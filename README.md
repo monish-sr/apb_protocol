@@ -565,7 +565,7 @@ Overall Coverage     : 100%
 
 # Waveform
 
-![APB Protocol Waveform]([images/apb_waveform.png](https://github.com/monish-sr/apb_protocol/blob/3088448ee41de752a533c350b7391adac02fcd76/apb_protocol_waveform.png)
+![APB Protocol Waveform](https://github.com/monish-sr/apb_protocol/blob/3088448ee41de752a533c350b7391adac02fcd76/apb_protocol_waveform.png)
 
 
 # Key Learning Outcomes
