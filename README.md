@@ -2,33 +2,34 @@
 
 ## Overview
 
-This project presents a class-based APB (Advanced Peripheral Bus) slave verification environment developed using SystemVerilog. The testbench verifies APB read and write transactions by generating constrained-random stimulus, monitoring DUT responses, and validating data integrity and protocol compliance.
+This project implements a class-based verification environment for an APB (Advanced Peripheral Bus) slave using SystemVerilog. The testbench verifies APB read and write operations by generating random transactions, monitoring DUT responses, and checking data correctness and protocol behaviour.
 
-The verification environment uses a layered, object-oriented architecture with a Generator, Bus Functional Model (BFM), Agent, Monitor, Scoreboard, Functional Coverage, SystemVerilog Assertions (SVA), and Environment. It supports APB transfers with two wait cycles in the ACCESS phase, mailbox-based communication between verification components, and automated PASS/FAIL reporting.
+The verification environment consists of a Generator, Bus Functional Model (BFM), Agent, Monitor, Scoreboard, Functional Coverage, SystemVerilog Assertions (SVA), and Environment. It also supports two wait cycles during the ACCESS phase, mailbox-based communication between components, and automatic PASS/FAIL reporting.
 
 ---
 
 ## Key Features
 
 - Class-based SystemVerilog verification environment for an APB slave
-- Support for APB read and write transactions
-- Three-state APB slave FSM: IDLE, SETUP, and ACCESS
-- Two-cycle wait-state support before asserting PREADY
-- Constrained-random transaction generation with configurable testcase execution
-- Mailbox-based communication between Generator, BFM, Monitor, Scoreboard, and Coverage
-- Virtual-interface-based stimulus driving and passive monitoring
-- Self-checking scoreboard with reference memory and matching/mismatching counters
-- Functional coverage for transaction addresses and read/write operations
+- Support for APB read and write operations
+- Three-state FSM: IDLE, SETUP, and ACCESS
+- Two wait cycles before asserting PREADY
+- Constrained-random transaction generation
+- Mailbox-based communication between verification components
+- Virtual interface for driving and monitoring APB signals
+- Monitor to capture completed transactions
+- Scoreboard with reference memory to check read data
+- Functional coverage for addresses and read/write operations
 - Cross coverage for PADDR × PWRITE and PSEL × PENABLE
-- Illegal-bin coverage to identify invalid APB interface signal combinations
-- SystemVerilog Assertions (SVA) for protocol compliance and signal stability checks
-- Automated PASS/FAIL reporting based on transaction counts and scoreboard results
+- Illegal bins to identify invalid APB signal combinations
+- SystemVerilog Assertions to check protocol rules and signal stability
+- Automated PASS/FAIL reporting based on scoreboard results and transaction counts
 
 ---
 
-## Testbench Architecture
+## Verification Architecture
 
-The verification environment follows a layered, class-based architecture with separate components for stimulus generation, bus driving, monitoring, checking, and coverage collection:
+The verification environment follows a class-based architecture with separate components for generating, driving, monitoring, and checking APB transactions.
 
 - APB Interface
 - Generator
@@ -41,51 +42,51 @@ The verification environment follows a layered, class-based architecture with se
 - Environment
 - Top-Level Testbench
 
-The Generator creates transactions and sends them to the BFM through a mailbox. The BFM drives the APB interface and communicates with the DUT. The Monitor observes completed transfers and distributes transaction information to the Scoreboard and Coverage collector through separate mailboxes.
+The Generator creates APB transactions and sends them to the BFM through a mailbox. The BFM drives the APB signals and communicates with the DUT.
 
-The Scoreboard maintains a reference memory model to check read data, while functional coverage measures exercised transaction and interface scenarios. Assertions check protocol rules, and the top-level testbench evaluates the results to produce an automated PASS/FAIL report.
+The Monitor observes completed transactions and sends the transaction details to the Scoreboard and Coverage collector. The Scoreboard checks read data using a reference memory model, while functional coverage tracks the scenarios exercised during simulation. Assertions check protocol rules, and the top-level testbench generates the final PASS/FAIL result.
 
 ---
 
 ## Verification Scope
 
-The verification environment validates:
+The verification environment checks:
 
-- APB read and write transactions
-- Correct IDLE, SETUP, and ACCESS phase transitions
-- Two-cycle wait-state behavior before PREADY assertion
+- APB read and write operations
+- Correct transitions between IDLE, SETUP, and ACCESS states
+- Two wait cycles before PREADY is asserted
 - Correct address and write-data handling
-- Write operations to the DUT's internal memory array
-- Read-data integrity using scoreboard-based reference checking
-- Address and read/write transaction coverage
-- APB interface signal combinations using cross coverage and illegal bins
-- Protocol rules through assertion-based verification
-- Address stability during ACCESS wait states
-- Valid PSEL and PENABLE relationships
-- Automated testcase evaluation using transaction counts and scoreboard results
+- Write operations to the DUT's internal memory
+- Read-data correctness using the scoreboard
+- Address and read/write operation coverage
+- APB signal combinations using cross coverage and illegal bins
+- Protocol rules using SystemVerilog Assertions
+- Address stability during ACCESS wait cycles
+- Correct relationship between PSEL and PENABLE
+- Automatic testcase evaluation using transaction counts and scoreboard results
 
 ---
 
-## Tools and Technologies I used
+## Tools and Technologies
 
 - Language: SystemVerilog
-- Verification Approach: Class-based, object-oriented verification
+- Verification Method: Class-based verification
 - Assertions: SystemVerilog Assertions (SVA)
-- Functional Verification: Functional and cross coverage
+- Coverage: Functional coverage and cross coverage
 - Communication: SystemVerilog mailboxes
 - Interface Access: Virtual interfaces
 - Simulator: QuestaSim / ModelSim
 - Protocol: AMBA APB
-- Reporting: Automated PASS/FAIL evaluation
+- Reporting: Automatic PASS/FAIL checking
 
 ---
 
 ## Results
 
-- Achieved **100% transaction coverage, 100% interface coverage, and 100% overall coverage** for the NWRD testcase.
-- Verified APB read and write transactions with two-cycle slave wait-state support.
-- Implemented scoreboard-based data integrity checking using a reference memory model.
-- Added assertion-based checks for APB protocol rules, signal stability, and read-data validity.
-- Evaluated multiple testcases, including single writes, multiple writes, and write-followed-by-read scenarios.
-- Successfully implemented automated PASS/FAIL reporting using transaction counts and matching/mismatching statistics.
+- Achieved 100% transaction coverage, 100% interface coverage, and 100% overall coverage for the NWRD testcase.
+- Verified APB read and write operations with two wait cycles in the ACCESS phase.
+- Checked read-data correctness using a scoreboard and reference memory.
+- Implemented assertions to check APB protocol rules and signal stability.
+- Tested multiple scenarios, including single writes, multiple writes, and write-followed-by-read operations.
+- Implemented automatic PASS/FAIL reporting using transaction counts and matching/mismatching results.
 
